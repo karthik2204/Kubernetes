@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prometheus-deployment
+  namespace: monitoring
+  labels:
+    app: monitoring-prom
+spec:
+  selector:
+    matchLabels:
+      app: monitoring-prom
+  template: 
+    metadata:
+      name: monitoring-prom
+      labels:
+        app: monitoring-prom
+    spec:
+      containers:
+      - name: prometheus
+        image: prom/prometheus:v2.18.0
+        args:
+        - "--config.file=/etc/prometheus/prometheus.yml"
+        ports:
+        - containerPort: 9090
+        volumeMounts:
+        - name: prometheus-config-volume
+          mountPath: /etc/prometheus/
+        - name: prometheus-share-volume
+          mountPath: /prometheus
+      volumes:
+      - name: prometheus-config-volume
+        configMap:
+          defaultMode: 420
+          name: prometheus-server-conf
+      - name: prometheus-share-volume
+        emptyDir: {}
+

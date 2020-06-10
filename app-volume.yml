@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: app-volume2
+  namespace: qat
+data:
+  app2.conf: |
+    Test conf file
+

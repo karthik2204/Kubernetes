@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grafana-deployment
+  namespace: monitoring
+  labels:
+    app: monitoring-grafana
+spec:
+  selector:
+    matchLabels:
+      app: monitoring-grafana
+  template: 
+    metadata:
+      name: monitoring-grafana
+      labels:
+        app: monitoring-grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana:6.5.0
+        ports:
+        - containerPort: 3000
