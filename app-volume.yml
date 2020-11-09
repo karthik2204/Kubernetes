@@ -6,4 +6,5 @@ metadata:
 data:
   app2.conf: |
     Test conf file
+    test
 
